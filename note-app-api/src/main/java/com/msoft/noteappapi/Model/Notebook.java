@@ -1,18 +1,28 @@
 package com.msoft.noteappapi.Model;
 
-public class Notebook {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "notebook")
+public class Notebook {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String notebookTitle;
     private Long noOfNote;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Note note;
 
     public Notebook() {
     }
 
-    public Notebook(Long id, String notebookTitle, Long noOfNote) {
-        this.id = id;
+    public Notebook(String notebookTitle, Long noOfNote, Note note) {
         this.notebookTitle = notebookTitle;
         this.noOfNote = noOfNote;
+        this.note = note;
     }
 
     public Long getId() {
@@ -39,12 +49,21 @@ public class Notebook {
         this.noOfNote = noOfNote;
     }
 
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
     @Override
     public String toString() {
         return "Notebook{" +
                 "id=" + id +
                 ", notebookTitle='" + notebookTitle + '\'' +
                 ", noOfNote=" + noOfNote +
+                ", note=" + note +
                 '}';
     }
 }
