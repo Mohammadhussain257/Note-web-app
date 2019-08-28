@@ -1,6 +1,7 @@
 package com.msoft.noteappapi.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class Note {
     private Long id;
     private String title;
     private String content;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date lastModified;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

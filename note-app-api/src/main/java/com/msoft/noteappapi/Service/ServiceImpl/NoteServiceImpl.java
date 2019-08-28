@@ -39,7 +39,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public List<Notebook> getAllNoteByNotebookId(long id) {
+    public List<Note> getAllNoteByNotebookId(long id) {
         return noteRepository.getAllNoteByNotebookId(id);
     }
 }

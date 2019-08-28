@@ -3,6 +3,7 @@ package com.msoft.noteappapi.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "notebook")
@@ -14,12 +15,12 @@ public class Notebook {
     private Long noOfNote;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook", cascade = CascadeType.ALL)
     @JsonIgnore
-    private Note note;
+    private List<Note> note;
 
     public Notebook() {
     }
 
-    public Notebook(String notebookTitle, Long noOfNote, Note note) {
+    public Notebook(String notebookTitle, Long noOfNote, List<Note> note) {
         this.notebookTitle = notebookTitle;
         this.noOfNote = noOfNote;
         this.note = note;
@@ -49,11 +50,11 @@ public class Notebook {
         this.noOfNote = noOfNote;
     }
 
-    public Note getNote() {
+    public List<Note> getNote() {
         return note;
     }
 
-    public void setNote(Note note) {
+    public void setNote(List<Note> note) {
         this.note = note;
     }
 
