@@ -18,7 +18,7 @@ public class NoteController {
     private NoteService noteService;
     @Autowired
     private NotebookService notebookService;
-    @PostMapping("/save")
+    @PostMapping("/save/{id}")
     public void saveNote(@RequestBody Note note, @PathVariable long id){
         var notebook=notebookService.getNotebookById(id);
         if(note!=null && notebook!=null){
@@ -29,10 +29,8 @@ public class NoteController {
     }
 
     @PutMapping("/update")
-    public void updateNote(@RequestBody Note note,@PathVariable long id){
-        var notebook=notebookService.getNotebookById(id);
-        if(note!=null && notebook!=null){
-            note.setNotebook(notebook);
+    public void updateNote(@RequestBody Note note){
+        if(note!=null){
             noteService.saveNote(note);
         }
     }

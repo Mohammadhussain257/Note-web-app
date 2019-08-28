@@ -17,6 +17,7 @@ public class Note {
     private Date lastModified;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
+    @JoinColumn(updatable = false,nullable = false)
     private Notebook notebook;
 
     public Note() {
