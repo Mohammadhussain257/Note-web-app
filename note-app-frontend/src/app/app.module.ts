@@ -25,7 +25,7 @@ const appRoutes: Routes = [
     AppComponent,
     NavigationComponent,
     NoteComponent,
-    FeedbackComponent
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,
