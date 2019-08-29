@@ -1,1 +1,64 @@
-<p>note works!</p>
+<!--Note Menu-->
+<div class="container">
+  <div class="row" style="margin-top:12px;">
+    <div class="col-md-8">
+      <input type="text" class="form-control" style="width: 100%;" placeholder="search notes...">
+    </div>
+    <div class="col-md-4">
+      <button type="button" class="btn btn-warning pull-right ml-2">
+        <i class="fa fa-plus-circle"></i>
+        <span>New Note</span>
+      </button>
+      <button type="button" class="btn btn-secondary pull-right">
+        <i class="fa fa-plus-circle"></i>
+        <span>New Notebook</span>
+      </button>
+    </div>
+  </div>
+
+<!--  Note Content-->
+  <div class="row" style="margin-top: 28px;">
+    <!--Notebook Menu-->
+    <div class="col-md-3">
+      <br>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action">
+          <i class="fa fa-book">&nbsp;All</i>
+        </a>
+        <a class="list-group-item list-group-item-action">
+          <i class="fa fa-book">&nbsp;</i>
+          <input type="text" class="input-label" style="width: 80%;" placeholder="Default">
+          <a class="text-danger pull-right">
+            <i class="fa fa-trash-o"></i>
+          </a>
+        </a>
+      </div>
+    </div>
+
+<!--    Note Panel-->
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-info">There are no note to display</p>
+        </div>
+      </div>
+      <div class="row">
+        <!--Note list-->
+        <div class="card bg-warning">
+          <div class="card-body" style="padding: 8px; margin-top: 8px;">
+            <!--title-->
+            <div>
+              <input type="text" class="input-label-lg" placeholder="Static Note">
+              <a class="pull-right text-danger">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+            <!--Textarea-->
+            <textarea class="input-label" style="width: 100%;" rows="6" placeholder="This is static content"></textarea>
+            <strong class="text-secondary" style="font-size: small;">static date: 2019-09-29</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
