@@ -25,9 +25,9 @@
         <a class="list-group-item list-group-item-action">
           <i class="fa fa-book">&nbsp;All</i>
         </a>
-        <a class="list-group-item list-group-item-action">
+        <a class="list-group-item list-group-item-action" *ngFor="let notebook of notebooks">
           <i class="fa fa-book">&nbsp;</i>
-          <input type="text" class="input-label" style="width: 80%;" placeholder="Default">
+          <input type="text" class="input-label" style="width: 80%;" [(ngModel)]="notebook.notebookTitle">
           <a class="text-danger pull-right">
             <i class="fa fa-trash-o"></i>
           </a>
@@ -44,18 +44,18 @@
       </div>
       <div class="row">
         <!--Note list-->
-        <div class="card bg-warning">
+        <div class="card bg-warning" *ngFor="let note of notes">
           <div class="card-body" style="padding: 8px; margin-top: 8px;">
             <!--title-->
             <div>
-              <input type="text" class="input-label-lg" placeholder="Static Note">
+              <input type="text" class="input-label-lg" [(ngModel)]="note.title">
               <a class="pull-right text-danger">
                 <i class="fa fa-trash-o"></i>
               </a>
             </div>
             <!--Textarea-->
-            <textarea class="input-label" style="width: 100%;" rows="6" placeholder="This is static content"></textarea>
-            <strong class="text-secondary" style="font-size: small;">static date: 2019-09-29</strong>
+            <textarea class="input-label" style="width: 100%;" rows="6" [(ngModel)]="note.content"></textarea>
+            <strong class="text-secondary" style="font-size: small;">{{note.lastModified | date: 'dd-MM-yyy HH:mm'}}</strong>
           </div>
         </div>
       </div>
