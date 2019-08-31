@@ -9,7 +9,7 @@
         <i class="fa fa-plus-circle"></i>
         <span>New Note</span>
       </button>
-      <button type="button" class="btn btn-secondary pull-right">
+      <button type="button" class="btn btn-secondary pull-right" (click)="newNotebook()">
         <i class="fa fa-plus-circle"></i>
         <span>New Notebook</span>
       </button>
@@ -27,8 +27,9 @@
         </a>
         <a class="list-group-item list-group-item-action" *ngFor="let notebook of notebooks">
           <i class="fa fa-book">&nbsp;</i>
-          <input type="text" class="input-label" style="width: 80%;" [(ngModel)]="notebook.notebookTitle">
-          <a class="text-danger pull-right">
+          <input type="text" class="input-label" style="width: 80%;" [(ngModel)]="notebook.notebookTitle"
+          (change)="updateNotebook(notebook)">
+          <a class="text-danger pull-right" (click)="deleteNotebook(notebook)">
             <i class="fa fa-trash-o"></i>
           </a>
         </a>
@@ -44,7 +45,7 @@
       </div>
       <div class="row">
         <!--Note list-->
-        <div class="card bg-warning" *ngFor="let note of notes">
+        <div class="card bg-warning mr-2" *ngFor="let note of notes">
           <div class="card-body" style="padding: 8px; margin-top: 8px;">
             <!--title-->
             <div>
