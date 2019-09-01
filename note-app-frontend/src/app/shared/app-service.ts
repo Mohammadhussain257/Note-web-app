@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {Note} from '../model/note';
 import {Notebook} from '../model/notebook';
-import {tap} from "rxjs/operators";
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,17 @@ export class AppService {
   private NEW_NOTEBOOK = '/save';
   private DELETE_NOTEBOOK = '/delete/';
   private UPDATE_NOTEBOOK = '/update';
+  private GET_NOTEBOOK_BY_ID = '/get/notebook/';
+  private GET_ALL_NOTE_BY_NOTEBOOK_ID = '/note/notebook/';
+  private DELETE_NOTE = '/delete/';
+  private UPDATE_NOTE = '/update';
+  private GET_NOTE_BY_ID = '/get/note/';
 
   constructor(private http: HttpClient) { }
   public refresh = new Subject<void>();
 
-  saveNote(note: Note, noteboo: Notebook): Observable<Note> {
-    return this.http.post<Note>(this.NOTE_BASE_URL + this.SAVE_NOTE, note).pipe(
+  createNote(note: Note, id: number): Observable<Note> {
+    return this.http.post<Note>(this.NOTE_BASE_URL + this.SAVE_NOTE + id, note).pipe(
       tap(() => {
         this.refresh.next();
       })
@@ -33,6 +38,7 @@ export class AppService {
   getAllNotes(): Observable<Note[]> {
     return this.http.get<Note[]>(this.NOTE_BASE_URL + this.GET_ALL_NOTE);
   }
+
   getAllNotebooks(): Observable<Notebook[]> {
     return this.http.get<Notebook[]>(this.NOTEBOOK_BASE_URL + this.GET_ALL_NOTEBOOK);
   }
@@ -44,10 +50,24 @@ export class AppService {
         })
       );
   }
+
   deleteNotebook(id: number): Observable<any> {
     return this.http.delete(this.NOTEBOOK_BASE_URL + this.DELETE_NOTEBOOK + id);
   }
+
   updateNotebook(notebook: Notebook): Observable<Notebook> {
     return this.http.put<Notebook>(this.NOTEBOOK_BASE_URL + this.UPDATE_NOTEBOOK, notebook);
+  }
+
+  getAllNoteByNotebookId(id: number): Observable<Note[]> {
+    return this.http.get<Note[]>(this.NOTEBOOK_BASE_URL + this.GET_ALL_NOTE_BY_NOTEBOOK_ID + id);
+  }
+
+  deleteNote(id: number): Observable<any> {
+    return this.http.delete(this.NOTE_BASE_URL + this.DELETE_NOTE + id);
+  }
+
+  updateNote(note: Note): Observable<Note> {
+    return  this.http.put<Note>(this.NOTE_BASE_URL + this.UPDATE_NOTE, note);
   }
 }

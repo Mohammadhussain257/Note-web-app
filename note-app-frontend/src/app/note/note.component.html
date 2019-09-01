@@ -2,10 +2,12 @@
 <div class="container">
   <div class="row" style="margin-top:12px;">
     <div class="col-md-8">
-      <input type="text" class="form-control" style="width: 100%;" placeholder="search notes...">
+      <input type="text" class="form-control" style="width: 100%;"
+            [(ngModel)]="searchText" placeholder="search notes...">
     </div>
     <div class="col-md-4">
-      <button type="button" class="btn btn-warning pull-right ml-2">
+      <button type="button" class="btn btn-warning pull-right ml-2" [disabled]="selectedNotebook == null"
+              (click)="newNote(selectedNotebook.id)">
         <i class="fa fa-plus-circle"></i>
         <span>New Note</span>
       </button>
@@ -22,10 +24,10 @@
     <div class="col-md-3">
       <br>
       <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action">
+        <a class="list-group-item list-group-item-action" (click)="selectAllNotes()">
           <i class="fa fa-book">&nbsp;All</i>
         </a>
-        <a class="list-group-item list-group-item-action" *ngFor="let notebook of notebooks">
+        <a class="list-group-item list-group-item-action" *ngFor="let notebook of notebooks" (click)="selectNotebook(notebook)">
           <i class="fa fa-book">&nbsp;</i>
           <input type="text" class="input-label" style="width: 80%;" [(ngModel)]="notebook.notebookTitle"
           (change)="updateNotebook(notebook)">
@@ -40,22 +42,24 @@
     <div class="col-md-9">
       <div class="row">
         <div class="col-md-12">
-          <p class="text-info">There are no note to display</p>
+          <h4 class="text-info" *ngIf="selectedNotebook != null">{{selectedNotebook.notebookTitle}}</h4>
+          <h4 class="text-info" *ngIf="selectedNotebook == null">All Notes</h4>
+          <p class="text-info" *ngIf="this.notes.length === 0">There are no note to display</p>
         </div>
       </div>
       <div class="row">
         <!--Note list-->
-        <div class="card bg-warning mr-2" *ngFor="let note of notes">
+        <div class="card bg-warning mr-2 mt-2" *ngFor="let note of notes | searchTextFilter:searchText">
           <div class="card-body" style="padding: 8px; margin-top: 8px;">
             <!--title-->
             <div>
-              <input type="text" class="input-label-lg" [(ngModel)]="note.title">
-              <a class="pull-right text-danger">
+              <input type="text" class="input-label-lg" [(ngModel)]="note.title" (change)="updateNote(note)">
+              <a class="text-danger pull-right input-label" (click)="deleteNote(note)">
                 <i class="fa fa-trash-o"></i>
               </a>
             </div>
             <!--Textarea-->
-            <textarea class="input-label" style="width: 100%;" rows="6" [(ngModel)]="note.content"></textarea>
+            <textarea class="input-label" style="width: 100%;" rows="6" [(ngModel)]="note.content" (change)="updateNote(note)"></textarea>
             <strong class="text-secondary" style="font-size: small;">{{note.lastModified | date: 'dd-MM-yyy HH:mm'}}</strong>
           </div>
         </div>
