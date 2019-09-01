@@ -8,6 +8,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { SearchTextFilterPipe } from './shared/search-text-filter.pipe';
 
 const appRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     NavigationComponent,
     NoteComponent,
     FeedbackComponent,
+    SearchTextFilterPipe,
   ],
   imports: [
     BrowserModule,
