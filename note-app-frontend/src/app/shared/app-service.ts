@@ -4,6 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import {Note} from '../model/note';
 import {Notebook} from '../model/notebook';
 import {tap} from 'rxjs/operators';
+import {Feedback} from "../model/feedback";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AppService {
   private GET_ALL_NOTE_BY_NOTEBOOK_ID = '/note/notebook/';
   private DELETE_NOTE = '/delete/';
   private UPDATE_NOTE = '/update';
-  private GET_NOTE_BY_ID = '/get/note/';
+  private POST_FEEDBACK_URL = 'http://localhost:8080/feedback/api/send/mail'
 
   constructor(private http: HttpClient) { }
   public refresh = new Subject<void>();
@@ -69,5 +70,9 @@ export class AppService {
 
   updateNote(note: Note): Observable<Note> {
     return  this.http.put<Note>(this.NOTE_BASE_URL + this.UPDATE_NOTE, note);
+  }
+
+  sendFeedback(feedback: Feedback): Observable<Feedback> {
+    return this.http.post<Feedback>(this.POST_FEEDBACK_URL, feedback);
   }
 }

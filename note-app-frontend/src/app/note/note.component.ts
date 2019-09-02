@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Note} from '../model/note';
 import {AppService} from '../shared/app-service';
 import {Notebook} from '../model/notebook';
-import {log} from "util";
+import {log} from 'util';
 
 @Component({
   selector: 'app-note',
