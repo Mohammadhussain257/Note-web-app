@@ -16,14 +16,19 @@ public class Notebook {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Note> note;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinColumn(updatable = false,nullable = false)
+    private User user;
 
     public Notebook() {
     }
 
-    public Notebook(String notebookTitle, Long noOfNote, List<Note> note) {
+    public Notebook(String notebookTitle, Long noOfNote, List<Note> note, User user) {
         this.notebookTitle = notebookTitle;
         this.noOfNote = noOfNote;
         this.note = note;
+        this.user = user;
     }
 
     public Long getId() {
@@ -58,6 +63,14 @@ public class Notebook {
         this.note = note;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Notebook{" +
@@ -65,6 +78,7 @@ public class Notebook {
                 ", notebookTitle='" + notebookTitle + '\'' +
                 ", noOfNote=" + noOfNote +
                 ", note=" + note +
+                ", user=" + user +
                 '}';
     }
 }
