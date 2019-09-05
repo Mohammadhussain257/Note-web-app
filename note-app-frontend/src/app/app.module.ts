@@ -9,6 +9,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { SearchTextFilterPipe } from './shared/search-text-filter.pipe';
+import {LoginComponent} from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const appRoutes: Routes = [
   {
@@ -18,6 +20,14 @@ const appRoutes: Routes = [
   {
     path: 'feedback',
     component: FeedbackComponent
+  },
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   }
 ];
 
@@ -28,6 +38,8 @@ const appRoutes: Routes = [
     NoteComponent,
     FeedbackComponent,
     SearchTextFilterPipe,
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
