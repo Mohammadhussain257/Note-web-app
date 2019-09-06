@@ -10,4 +10,5 @@ public interface NotebookService {
     void deleteNotebook(long id);
     Notebook getNotebookById(long id);
     List<Notebook> getAllNotebook();
+    List<Notebook> getNoteboookByUserId(long id);
 }

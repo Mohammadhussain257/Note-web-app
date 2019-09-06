@@ -1,10 +1,41 @@
 package com.msoft.noteappapi.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.msoft.noteappapi.Model.Notebook;
+import com.msoft.noteappapi.Model.User;
+import com.msoft.noteappapi.Repository.NotebookRepositroy;
+import com.msoft.noteappapi.Service.NotebookService;
+import com.msoft.noteappapi.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/user/api")
 public class UserController {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private NotebookService notebookService;
+
+    @PostMapping("/save")
+    public void saveUser(@RequestBody User user){
+        if(user !=null){
+            userService.saveUser(user);
+        }
+    }
+
+    @GetMapping("/get/notebook/{id}")
+    public List<Notebook> getAllNotebookByUserId(@PathVariable long id){
+        if(id!=0){
+           return notebookService.getNoteboookByUserId(id);
+        }
+        return null;
+    }
+
+    @RequestMapping({"/validateLogin"})
+    public User validateLogin(){
+        return new User();
+    }
 }
