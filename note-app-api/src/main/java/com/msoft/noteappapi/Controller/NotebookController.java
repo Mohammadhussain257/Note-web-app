@@ -2,8 +2,10 @@ package com.msoft.noteappapi.Controller;
 
 import com.msoft.noteappapi.Model.Note;
 import com.msoft.noteappapi.Model.Notebook;
+import com.msoft.noteappapi.Model.User;
 import com.msoft.noteappapi.Service.NoteService;
 import com.msoft.noteappapi.Service.NotebookService;
+import com.msoft.noteappapi.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +21,15 @@ public class NotebookController {
     @Autowired
     private NoteService noteService;
 
-    @PostMapping("/save")
-    public void saveNotebook(@RequestBody Notebook notebook){
-        if(notebook!=null){
-         notebookService.saveNotebook(notebook);
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/save/{id}")
+    public void saveNotebook(@RequestBody Notebook notebook, @PathVariable long id){
+        var user=userService.getUserById(id);
+        if(user!=null && notebook!=null){
+            notebook.setUser(user);
+            notebookService.saveNotebook(notebook);
         }
     }
 

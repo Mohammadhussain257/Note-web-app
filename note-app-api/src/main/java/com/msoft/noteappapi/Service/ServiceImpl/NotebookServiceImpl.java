@@ -40,4 +40,9 @@ public class NotebookServiceImpl implements NotebookService {
     public List<Notebook> getAllNotebook() {
         return (List<Notebook>) notebookRepositroy.findAll();
     }
+
+    @Override
+    public List<Notebook> getNoteboookByUserId(long id) {
+        return notebookRepositroy.getAllNotebookByUserkId(id);
+    }
 }
