@@ -3,6 +3,7 @@ import {Note} from '../model/note';
 import {AppService} from '../shared/app-service';
 import {Notebook} from '../model/notebook';
 import {log} from 'util';
+import {User} from '../model/user';
 
 @Component({
   selector: 'app-note',
@@ -13,6 +14,7 @@ export class NoteComponent implements OnInit {
   notes: Note[] = [];
   notebooks: Notebook[] = [];
   selectedNotebook: Notebook;
+  user: User;
   searchText: string;
   constructor(private apiService: AppService) { }
 
@@ -53,7 +55,7 @@ export class NoteComponent implements OnInit {
       notebookTitle: 'New Notebook',
       noOfNote: 0
     };
-    this.apiService.newNotebook(new_notebook).subscribe(
+    this.apiService.newNotebook(new_notebook, this.user.id).subscribe(
       res => {
         if (new_notebook.id == null) {
           new_notebook.id = res.id;
