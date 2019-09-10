@@ -2,10 +2,11 @@ package com.msoft.noteappapi.Controller;
 
 import com.msoft.noteappapi.Model.Notebook;
 import com.msoft.noteappapi.Model.User;
-import com.msoft.noteappapi.Repository.NotebookRepositroy;
 import com.msoft.noteappapi.Service.NotebookService;
 import com.msoft.noteappapi.Service.UserService;
+import com.msoft.noteappapi.dto.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class UserController {
     @Autowired
     private NotebookService notebookService;
 
+    private AuthenticationManager authenticationManager;
     @PostMapping("/save")
     public void saveUser(@RequestBody User user){
         if(user !=null){
@@ -34,8 +36,10 @@ public class UserController {
         return null;
     }
 
-    @RequestMapping({"/validateLogin"})
-    public User validateLogin(){
-        return new User();
+    @GetMapping(produces = "application/json")
+    @RequestMapping({ "/validateLogin" })
+    public UserStatus validateLogin() {
+        return new UserStatus("User successfully authenticated");
     }
+    
 }

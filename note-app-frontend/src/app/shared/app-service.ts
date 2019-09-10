@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {Note} from '../model/note';
 import {Notebook} from '../model/notebook';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 import {Feedback} from "../model/feedback";
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,14 @@ export class AppService {
   private SAVE_NOTE = '/save/';
   private GET_ALL_NOTE = '/get/all/notes';
   private GET_ALL_NOTEBOOK = '/get/all/Notebooks';
-  private NEW_NOTEBOOK = '/save';
+  private NEW_NOTEBOOK = '/save/';
   private DELETE_NOTEBOOK = '/delete/';
   private UPDATE_NOTEBOOK = '/update';
   private GET_NOTEBOOK_BY_ID = '/get/notebook/';
   private GET_ALL_NOTE_BY_NOTEBOOK_ID = '/note/notebook/';
   private DELETE_NOTE = '/delete/';
   private UPDATE_NOTE = '/update';
-  private POST_FEEDBACK_URL = 'http://localhost:8080/feedback/api/send/mail'
+  private POST_FEEDBACK_URL = 'http://localhost:8080/feedback/api/send/mail';
 
   constructor(private http: HttpClient) { }
   public refresh = new Subject<void>();
@@ -43,8 +44,8 @@ export class AppService {
   getAllNotebooks(): Observable<Notebook[]> {
     return this.http.get<Notebook[]>(this.NOTEBOOK_BASE_URL + this.GET_ALL_NOTEBOOK);
   }
-  newNotebook(notebook: Notebook): Observable<Notebook> {
-    return this.http.post<Notebook>(this.NOTEBOOK_BASE_URL + this.NEW_NOTEBOOK, notebook)
+  newNotebook(notebook: Notebook, id: number): Observable<Notebook> {
+    return this.http.post<Notebook>(this.NOTEBOOK_BASE_URL + this.NEW_NOTEBOOK + id, notebook)
       .pipe(
         tap(() => {
           this.refresh.next();
