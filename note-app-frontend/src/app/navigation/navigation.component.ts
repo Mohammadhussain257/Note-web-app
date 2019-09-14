@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// @ts-ignore
 import {AuthenticationService} from '../shared/authentication.service';
 
 @Component({
