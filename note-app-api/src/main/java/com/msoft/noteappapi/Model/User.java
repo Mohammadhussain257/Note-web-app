@@ -1,13 +1,21 @@
 package com.msoft.noteappapi.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.msoft.noteappapi.Security.Authority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails, Serializable {
+    private final static long serialVersionUID = 12346487L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -57,6 +65,8 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
     public String getPassword() {
         return password;
@@ -110,5 +120,31 @@ public class User {
                 ", role='" + role + '\'' +
                 ", notebooks=" + notebooks +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities =new HashSet<>();
+        authorities.add(new Authority(getRole()));
+        return authorities;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }
