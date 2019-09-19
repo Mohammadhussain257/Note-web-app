@@ -14,8 +14,8 @@ export class NoteComponent implements OnInit {
   notes: Note[] = [];
   notebooks: Notebook[] = [];
   selectedNotebook: Notebook;
-  user: User;
   searchText: string;
+  username = sessionStorage.getItem('username');
   constructor(private apiService: AppService) { }
 
   ngOnInit() {
@@ -53,17 +53,19 @@ export class NoteComponent implements OnInit {
     let new_notebook: Notebook = {
       id: 0,
       notebookTitle: 'New Notebook',
-      noOfNote: 0
+      noOfNote: 0,
     };
-    this.apiService.newNotebook(new_notebook, this.user.id).subscribe(
+    this.apiService.newNotebook(new_notebook, this.username).subscribe(
       res => {
         if (new_notebook.id == null) {
           new_notebook.id = res.id;
           this.notebooks.push(new_notebook);
           }
+        alert('Username : ' + this.username);
       },
       err => {
         alert('An error occurred while creating notebook');
+        alert('Inside error username : ' + this.username);
       }
     );
   }

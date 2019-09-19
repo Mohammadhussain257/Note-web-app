@@ -44,8 +44,8 @@ export class AppService {
   getAllNotebooks(): Observable<Notebook[]> {
     return this.http.get<Notebook[]>(this.NOTEBOOK_BASE_URL + this.GET_ALL_NOTEBOOK);
   }
-  newNotebook(notebook: Notebook, id: number): Observable<Notebook> {
-    return this.http.post<Notebook>(this.NOTEBOOK_BASE_URL + this.NEW_NOTEBOOK + id, notebook)
+  newNotebook(notebook: Notebook, username: string): Observable<Notebook> {
+    return this.http.post<Notebook>(this.NOTEBOOK_BASE_URL + this.NEW_NOTEBOOK + username, notebook)
       .pipe(
         tap(() => {
           this.refresh.next();

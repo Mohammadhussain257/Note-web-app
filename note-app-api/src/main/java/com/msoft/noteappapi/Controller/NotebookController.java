@@ -24,9 +24,9 @@ public class NotebookController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/save/{id}")
-    public void saveNotebook(@RequestBody Notebook notebook, @PathVariable long id){
-        var user=userService.getUserById(id);
+    @PostMapping("/save/{username}")
+    public void saveNotebook(@RequestBody Notebook notebook, @PathVariable String username){
+        var user=userService.findByUsername(username);
         if(user!=null && notebook!=null){
             notebook.setUser(user);
             notebookService.saveNotebook(notebook);
