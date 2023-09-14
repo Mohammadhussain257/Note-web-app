@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Web Note
+
+  datasource:
+    username: root # replace with your database username
+    password: root # replace with your database password
+    url: jdbc:mysql://localhost:3306/noteapp # make sure you have created database call noteapp or replace with your own database
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  # replace with your own mail configuration property
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: b8a0379734a67c
+    password: a22c4eda694fab

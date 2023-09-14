@@ -6,8 +6,7 @@ import com.msoft.noteappapi.Service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.ValidationException;
+import javax.xml.bind.ValidationException;
 
 @CrossOrigin("http://localhost:4200")
 @RestController
@@ -23,7 +22,7 @@ public class FeedbackController {
 
     @PostMapping("/send/mail")
     public void sendFeedback(@RequestBody Feedback feedback,
-                             BindingResult bindingResult){
+                             BindingResult bindingResult) throws ValidationException {
         if(bindingResult.hasErrors()){
             throw new ValidationException("Feedback has errors. Can not send feedback.");
         }
